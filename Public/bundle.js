@@ -48,8 +48,8 @@
 
 	var React = __webpack_require__(1);
 	var Auth = __webpack_require__(157);
-	var Playlist = __webpack_require__(168);
-	var helpers = __webpack_require__(161);
+	var Playlist = __webpack_require__(169);
+	var helpers = __webpack_require__(162);
 
 	var Main = React.createClass({
 	  displayName: 'Main',
@@ -112,6 +112,10 @@
 	    $('body').css('background-color', this.state.backgroundColor);
 	  },
 
+	  consoleLog: function consoleLog() {
+	    console.log("hey!");
+	  },
+
 	  // render is in ternary conditional statements ("if the state is true, show element (playlist or auth)")
 	  render: function render() {
 	    return React.createElement(
@@ -126,7 +130,7 @@
 	          React.createElement(
 	            'div',
 	            null,
-	            this.state.showAuth ? React.createElement(Auth, { updateCode: this.updateCode }) : null
+	            this.state.showAuth ? React.createElement(Auth, { updateCode: this.updateCode, goMain: this.consoleLog }) : null
 	          ),
 	          React.createElement(
 	            'div',
@@ -20525,7 +20529,7 @@
 
 	var React = __webpack_require__(1);
 	var Host = __webpack_require__(158);
-	var Guest = __webpack_require__(167);
+	var Guest = __webpack_require__(168);
 
 	var Auth = React.createClass({
 	  displayName: 'Auth',
@@ -20534,8 +20538,8 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(Host, this.props),
-	      React.createElement(Guest, this.props)
+	      React.createElement(Guest, this.props),
+	      React.createElement(Host, this.props)
 	    );
 	  }
 	});
@@ -20551,7 +20555,9 @@
 	var React = __webpack_require__(1);
 
 	var HostButton = __webpack_require__(159);
-	var InputBar = __webpack_require__(160);
+	var HostSignup = __webpack_require__(160);
+
+	var InputBar = __webpack_require__(161);
 
 	var Host = React.createClass({
 	  displayName: 'Host',
@@ -20580,21 +20586,12 @@
 	  render: function render() {
 	    return React.createElement(
 	      'div',
-	      { className: 'padded-container' },
-	      React.createElement('img', { src: '../../assets/img/llamalogo.png' }),
+	      { className: 'login-container' },
 	      React.createElement(
 	        'div',
-	        { className: 'logo-container' },
-	        React.createElement(
-	          'div',
-	          null,
-	          this.state.showButton ? React.createElement(HostButton, { showInput: this.showInput }) : null
-	        ),
-	        React.createElement(
-	          'div',
-	          null,
-	          this.state.showInputBar ? React.createElement(InputBar, this.props) : null
-	        )
+	        null,
+	        this.state.showButton ? React.createElement(HostButton, { showInput: this.showInput }) : null,
+	        React.createElement(HostSignup, this.props)
 	      )
 	    );
 	  }
@@ -20616,12 +20613,12 @@
 	  render: function render() {
 	    return React.createElement(
 	      'button',
-	      { onClick: this.props.showInput, className: 'button-lets-jam' },
+	      { onClick: this.props.showInput, className: 'button-login' },
 	      ' ',
 	      React.createElement(
 	        'span',
-	        { className: 'text-lets-jam' },
-	        'Lets Jam'
+	        { className: 'text-login' },
+	        'Login'
 	      ),
 	      ' '
 	    );
@@ -20637,7 +20634,35 @@
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var helpers = __webpack_require__(161);
+
+	var HostSignup = React.createClass({
+	  displayName: 'HostSignup',
+
+	  render: function render() {
+	    return React.createElement(
+	      'button',
+	      { onClick: this.props.consoleLog, className: 'button-signup' },
+	      ' ',
+	      React.createElement(
+	        'span',
+	        { className: 'text-signup' },
+	        'Sign up'
+	      ),
+	      ' '
+	    );
+	  }
+	});
+
+	module.exports = HostSignup;
+
+/***/ },
+/* 161 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+	var helpers = __webpack_require__(162);
 
 	var InputBar = React.createClass({
 	  displayName: 'InputBar',
@@ -20667,15 +20692,15 @@
 	module.exports = InputBar;
 
 /***/ },
-/* 161 */
+/* 162 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Firebase = __webpack_require__(162);
-	var FirebaseTokenGenerator = __webpack_require__(163);
-	var Promise = __webpack_require__(164);
-	var Fireproof = __webpack_require__(166);
+	var Firebase = __webpack_require__(163);
+	var FirebaseTokenGenerator = __webpack_require__(164);
+	var Promise = __webpack_require__(165);
+	var Fireproof = __webpack_require__(167);
 	Fireproof.bless(Promise);
 
 	// create reference to database
@@ -20727,7 +20752,7 @@
 	};
 
 /***/ },
-/* 162 */
+/* 163 */
 /***/ function(module, exports) {
 
 	/*! @license Firebase v2.3.1
@@ -21002,7 +21027,7 @@
 
 
 /***/ },
-/* 163 */
+/* 164 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var COMPILED=!0,goog=goog||{};goog.global=this;goog.exportPath_=function(a,b,c){a=a.split(".");c=c||goog.global;!(a[0]in c)&&c.execScript&&c.execScript("var "+a[0]);for(var d;a.length&&(d=a.shift());)!a.length&&void 0!==b?c[d]=b:c=c[d]?c[d]:c[d]={}};goog.define=function(a,b){var c=b;COMPILED||goog.global.CLOSURE_DEFINES&&Object.prototype.hasOwnProperty.call(goog.global.CLOSURE_DEFINES,a)&&(c=goog.global.CLOSURE_DEFINES[a]);goog.exportPath_(a,c)};goog.DEBUG=!0;goog.define("goog.LOCALE","en");
@@ -21133,7 +21158,7 @@
 
 
 /***/ },
-/* 164 */
+/* 165 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process, global, setImmediate) {/* @preserve
@@ -26023,10 +26048,10 @@
 
 	},{"./es5.js":14}]},{},[4])(4)
 	});                    ;if (typeof window !== 'undefined' && window !== null) {                               window.P = window.Promise;                                                     } else if (typeof self !== 'undefined' && self !== null) {                             self.P = self.Promise;                                                         }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), (function() { return this; }()), __webpack_require__(165).setImmediate))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), (function() { return this; }()), __webpack_require__(166).setImmediate))
 
 /***/ },
-/* 165 */
+/* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(setImmediate, clearImmediate) {var nextTick = __webpack_require__(3).nextTick;
@@ -26105,10 +26130,10 @@
 	exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate : function(id) {
 	  delete immediateIds[id];
 	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(165).setImmediate, __webpack_require__(165).clearImmediate))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(166).setImmediate, __webpack_require__(166).clearImmediate))
 
 /***/ },
-/* 166 */
+/* 167 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! fireproof 3.0.3, © 2015 J2H2 Inc. ISC License.
@@ -28421,13 +28446,13 @@
 
 
 /***/ },
-/* 167 */
+/* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var helpers = __webpack_require__(161);
+	var helpers = __webpack_require__(162);
 
 	var Guest = React.createClass({
 	  displayName: 'Guest',
@@ -28440,11 +28465,16 @@
 	  render: function render() {
 	    return React.createElement(
 	      'div',
-	      { className: 'guest-container' },
+	      { className: 'padded-container' },
+	      React.createElement('img', { src: '../../assets/img/llamalogo.png' }),
 	      React.createElement(
-	        'form',
-	        { onSubmit: this.submitHandler },
-	        React.createElement('input', { type: 'text', className: 'input-join-jam', placeholder: 'JOIN A JAM', ref: 'playlistCode' })
+	        'div',
+	        { className: 'logo-container' },
+	        React.createElement(
+	          'form',
+	          { onSubmit: this.submitHandler },
+	          React.createElement('input', { type: 'text', className: 'input-join-jam', placeholder: 'JOIN A JAM', ref: 'playlistCode' })
+	        )
 	      )
 	    );
 	  }
@@ -28453,13 +28483,13 @@
 	module.exports = Guest;
 
 /***/ },
-/* 168 */
+/* 169 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var SongEntry = __webpack_require__(169);
+	var SongEntry = __webpack_require__(170);
 
 	//basic playlist skeleton for each page
 	var Playlist = React.createClass({
@@ -28519,16 +28549,16 @@
 	/* passes in all the child props to songEntry, the parent */
 
 /***/ },
-/* 169 */
+/* 170 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var Search = __webpack_require__(170);
-	var Song = __webpack_require__(171);
-	var Player = __webpack_require__(172);
-	var Firebase = __webpack_require__(162);
+	var Search = __webpack_require__(171);
+	var Song = __webpack_require__(172);
+	var Player = __webpack_require__(173);
+	var Firebase = __webpack_require__(163);
 
 	var SongEntry = React.createClass({
 	  displayName: 'SongEntry',
@@ -28764,7 +28794,7 @@
 	module.exports = SongEntry;
 
 /***/ },
-/* 170 */
+/* 171 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28803,7 +28833,7 @@
 	module.exports = Search;
 
 /***/ },
-/* 171 */
+/* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28840,7 +28870,7 @@
 	module.exports = Song;
 
 /***/ },
-/* 172 */
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

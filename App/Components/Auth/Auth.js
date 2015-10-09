@@ -7,8 +7,8 @@ var Auth = React.createClass({
   render: function() {
     return (
       <div>
-        <Host {...this.props}/>
         <Guest {...this.props}/>
+        <Host {...this.props}/>
       </div>
     );
   }

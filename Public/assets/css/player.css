@@ -60,7 +60,7 @@ body {
   text-align: center;
 }
 
-.guest-container {
+.login-container {
   font-family: 'Lato', sans-serif;
   padding-top: 17px;
 }
@@ -93,12 +93,46 @@ body {
   background-color: transparent;
 }
 
+.text-login {
+  font-family: 'Lato', sans-serif;
+  text-transform: uppercase;
+  padding: 20px 25px 20px 25px;
+  color: white;
+}
+
+.text-signup {
+  font-family: 'Lato', sans-serif;
+  text-transform: uppercase;
+  padding: 20px 20px 20px 20px;
+  color: white;
+}
+
 /* text of the lets jam button on the front page */
 .text-lets-jam {
   font-family: 'Lato', sans-serif;
   text-transform: uppercase;
   padding: 20px 30px 20px 30px;
   color: white;
+}
+
+.button-login {
+  background-color: #ff6c00;
+  width: 145px;
+  height: 48px;
+  font-size: 15px;
+  letter-spacing: 3px;
+  border-width: 0px;
+  margin-right: 3px;
+}
+
+.button-signup {
+  background-color: #ff3300;
+  width: 145px;
+  height: 48px;
+  font-size: 15px;
+  letter-spacing: 1px;
+  border-width: 0px;
+  margin-left: 3px;
 }
 
 /* lets jam button on the front page */
@@ -150,14 +184,13 @@ body {
 .input-join-jam {
   background-color: #f1b136;
   width: 330px;
-  height: 29px;
-  border-width: 0px;
+  height: 48px;
+  font-size: 15px;
   font-family: 'Lato', sans-serif;
   width: 290px;
-  height: 29px;
+  height: 48px;
   border-width: 0px;
   color:#fff;
-  padding: 5px 5px 5px 5px;
 }
 
 /* the front page input that holds the 'join a jam' */

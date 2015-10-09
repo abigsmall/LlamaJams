@@ -1,6 +1,8 @@
 var React = require('react');
 
 var HostButton = require('./hostbutton');
+var HostSignup = require('./hostsignup');
+
 var InputBar = require('./inputbar');
 
 var Host = React.createClass({
@@ -28,17 +30,11 @@ var Host = React.createClass({
 
   render: function() {
     return (
-      <div className='padded-container'>
-        <img src='../../assets/img/llamalogo.png'/>
-        <div className='logo-container'>
-        <div>
-          {this.state.showButton ? <HostButton showInput={this.showInput}/> : null}
-        </div>
-
-        <div>
-          {this.state.showInputBar ? <InputBar {...this.props}/> : null}
-        </div>
-        </div>
+      <div className='login-container'>
+          <div>
+            {this.state.showButton ? <HostButton showInput={this.showInput}/> : null}
+            <HostSignup {...this.props}/>
+          </div>
       </div>
     );
   }

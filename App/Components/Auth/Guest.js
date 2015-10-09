@@ -10,10 +10,14 @@ var Guest = React.createClass({
   },
   render: function() {
     return (
-      <div className='guest-container'>
-        <form onSubmit={this.submitHandler}>
-          <input type='text' className='input-join-jam' placeholder='JOIN A JAM' ref='playlistCode' />
-        </form>
+      <div className='padded-container'>
+        <img src='../../assets/img/llamalogo.png'/>
+
+        <div className='logo-container'>
+          <form onSubmit={this.submitHandler}>
+            <input type='text' className='input-join-jam' placeholder='JOIN A JAM' ref='playlistCode' />
+          </form>
+        </div>
       </div>
     );
   }
