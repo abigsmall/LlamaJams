@@ -3,14 +3,15 @@ var React = require('react');
 var HostButton = require('./hostbutton');
 var HostSignup = require('./hostsignup');
 
-var InputBar = require('./inputbar');
+var LoginForm = require('./loginform');
+var SignupForm = require('./signupform');
 
 var Host = React.createClass({
 
   getInitialState: function() {
     return {
       showButton: true,
-      showInputBar: false
+      showInputBar: false,
     };
   },
 
@@ -28,13 +29,36 @@ var Host = React.createClass({
     }
   },
 
+  showLogin: function() {
+    this.props.showForm("login");
+  },
+
+  showSignup: function() {
+    this.props.showForm("signup");
+  },
+
+  goBack: function() {
+    this.props.resetAuthView();
+  },
+
   render: function() {
+    var hostView;
+    if (!this.props.showLoginForm && !this.props.showSignupForm) {
+      hostView = <div>
+                   <HostButton showLogin={this.showLogin} />
+                   <HostSignup showSignup={this.showSignup} />
+                 </div>;
+    }
+    if (this.props.showLoginForm) {
+      hostView = <LoginForm goBack={this.props.resetAuthView} />;
+    }
+    if (this.props.showSignupForm) {
+      hostView = <SignupForm goBack={this.props.resetAuthView} />;
+    }
+
     return (
       <div className='login-container'>
-          <div>
-            {this.state.showButton ? <HostButton showInput={this.showInput}/> : null}
-            <HostSignup {...this.props}/>
-          </div>
+        {hostView}
       </div>
     );
   }

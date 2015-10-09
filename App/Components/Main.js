@@ -67,10 +67,6 @@ var Main = React.createClass({
     $('body').css('background-color', this.state.backgroundColor);
   },
 
-  consoleLog: function() {
-    console.log("hey!");
-  },
-
 // render is in ternary conditional statements ("if the state is true, show element (playlist or auth)")
   render: function() {
     return (
@@ -78,7 +74,7 @@ var Main = React.createClass({
         <div className='bigger-container'>
         <div className='align-container'>
         <div>
-          {this.state.showAuth  ? <Auth updateCode={this.updateCode} goMain={this.consoleLog} /> : null}
+          {this.state.showAuth  ? <Auth updateCode={this.updateCode} /> : null}
         </div>
 
         <div>

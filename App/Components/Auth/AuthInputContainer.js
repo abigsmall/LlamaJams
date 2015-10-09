@@ -2,16 +2,27 @@ var React = require('react');
 var Host = require('./host/host');
 var Guest = require('./guest');
 
-var Auth = React.createClass({
+var AuthInputContainer = React.createClass({
 
   getInitialState: function() {
     return {
+      updateCode: this.props.updateCode,
+      showLoginSignupForm: false,
       showLoginForm: false,
       showSignupForm: false
     };
   },
 
+  resetAuthView: function() {
+    this.setState({
+      showLoginSignupForm: false,
+      showLoginForm: false,
+      showSignupForm: false
+    });
+  },
+
   showForm: function(whichForm) {
+    this.setState({showLoginSignupForm: true});
     if (whichForm === "login") {
       this.setState({showLoginForm: true});
     }
@@ -20,21 +31,14 @@ var Auth = React.createClass({
     }
   },
 
-  resetAuthView: function() {
-    this.setState({
-      showLoginForm: false,
-      showSignupForm: false
-    });
-  },
-
   render: function() {
     var authView;
-    if (!this.state.showLoginForm && !this.state.showSignupForm) {
+    if (!this.state.showLoginSignupForm) {
       authView = <div>
                    <Guest {...this.props} />
                    <Host showForm={this.showForm} {...this.props} />
                  </div>;
-    } else {
+    } else if (this.state.showLoginSignupForm) {
       authView = <Host showForm={this.showForm}
                   showLoginForm={this.state.showLoginForm}
                   showSignupForm={this.state.showSignupForm}
@@ -42,15 +46,8 @@ var Auth = React.createClass({
                   {...this.props} />
     }
 
-    return (
-      <div className='padded-container'>
-        <img src='../../assets/img/llamalogo.png'/>
-
-        {authView}
-
-      </div>
-    );
+    return (<div>{authView}</div>);
   }
 });
 
-module.exports = Auth;
+module.exports = AuthInputContainer;

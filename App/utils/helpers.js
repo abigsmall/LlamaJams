@@ -46,6 +46,18 @@ module.exports = {
     return playlistCode;
 	},
 
+  loginUser: function() {
+    var ref = new Firebase("https://lldj.firebaseio.com");
+      ref.authWithOAuthPopup("facebook", function(error, authData) {
+      if (error) {
+        console.log("Login Failed!", error);
+      } else {
+        console.log("Authenticated successfully with payload:", authData);
+        window.localStorage.setItem('authToken', authData.token);
+      }
+    });
+  },
+
   // GUESTS
   checkCode: function() {
     // return a 'promisable' snaoshot of firebase data

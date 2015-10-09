@@ -48,7 +48,7 @@
 
 	var React = __webpack_require__(1);
 	var Auth = __webpack_require__(157);
-	var Playlist = __webpack_require__(169);
+	var Playlist = __webpack_require__(170);
 	var helpers = __webpack_require__(162);
 
 	var Main = React.createClass({
@@ -112,10 +112,6 @@
 	    $('body').css('background-color', this.state.backgroundColor);
 	  },
 
-	  consoleLog: function consoleLog() {
-	    console.log("hey!");
-	  },
-
 	  // render is in ternary conditional statements ("if the state is true, show element (playlist or auth)")
 	  render: function render() {
 	    return React.createElement(
@@ -130,7 +126,7 @@
 	          React.createElement(
 	            'div',
 	            null,
-	            this.state.showAuth ? React.createElement(Auth, { updateCode: this.updateCode, goMain: this.consoleLog }) : null
+	            this.state.showAuth ? React.createElement(Auth, { updateCode: this.updateCode }) : null
 	          ),
 	          React.createElement(
 	            'div',
@@ -20527,19 +20523,60 @@
 
 	'use strict';
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var React = __webpack_require__(1);
 	var Host = __webpack_require__(158);
-	var Guest = __webpack_require__(168);
+	var Guest = __webpack_require__(169);
 
 	var Auth = React.createClass({
 	  displayName: 'Auth',
 
+	  getInitialState: function getInitialState() {
+	    return {
+	      showLoginForm: false,
+	      showSignupForm: false
+	    };
+	  },
+
+	  showForm: function showForm(whichForm) {
+	    if (whichForm === "login") {
+	      this.setState({ showLoginForm: true });
+	    }
+	    if (whichForm === "signup") {
+	      this.setState({ showSignupForm: true });
+	    }
+	  },
+
+	  resetAuthView: function resetAuthView() {
+	    this.setState({
+	      showLoginForm: false,
+	      showSignupForm: false
+	    });
+	  },
+
 	  render: function render() {
+	    var authView;
+	    if (!this.state.showLoginForm && !this.state.showSignupForm) {
+	      authView = React.createElement(
+	        'div',
+	        null,
+	        React.createElement(Guest, this.props),
+	        React.createElement(Host, _extends({ showForm: this.showForm }, this.props))
+	      );
+	    } else {
+	      authView = React.createElement(Host, _extends({ showForm: this.showForm,
+	        showLoginForm: this.state.showLoginForm,
+	        showSignupForm: this.state.showSignupForm,
+	        resetAuthView: this.resetAuthView
+	      }, this.props));
+	    }
+
 	    return React.createElement(
 	      'div',
-	      null,
-	      React.createElement(Guest, this.props),
-	      React.createElement(Host, this.props)
+	      { className: 'padded-container' },
+	      React.createElement('img', { src: '../../assets/img/llamalogo.png' }),
+	      authView
 	    );
 	  }
 	});
@@ -20557,7 +20594,8 @@
 	var HostButton = __webpack_require__(159);
 	var HostSignup = __webpack_require__(160);
 
-	var InputBar = __webpack_require__(161);
+	var LoginForm = __webpack_require__(161);
+	var SignupForm = __webpack_require__(168);
 
 	var Host = React.createClass({
 	  displayName: 'Host',
@@ -20583,16 +20621,39 @@
 	      }
 	  },
 
+	  showLogin: function showLogin() {
+	    this.props.showForm("login");
+	  },
+
+	  showSignup: function showSignup() {
+	    this.props.showForm("signup");
+	  },
+
+	  goBack: function goBack() {
+	    this.props.resetAuthView();
+	  },
+
 	  render: function render() {
+	    var hostView;
+	    if (!this.props.showLoginForm && !this.props.showSignupForm) {
+	      hostView = React.createElement(
+	        'div',
+	        null,
+	        React.createElement(HostButton, { showLogin: this.showLogin }),
+	        React.createElement(HostSignup, { showSignup: this.showSignup })
+	      );
+	    }
+	    if (this.props.showLoginForm) {
+	      hostView = React.createElement(LoginForm, { goBack: this.props.resetAuthView });
+	    }
+	    if (this.props.showSignupForm) {
+	      hostView = React.createElement(SignupForm, { goBack: this.props.resetAuthView });
+	    }
+
 	    return React.createElement(
 	      'div',
 	      { className: 'login-container' },
-	      React.createElement(
-	        'div',
-	        null,
-	        this.state.showButton ? React.createElement(HostButton, { showInput: this.showInput }) : null,
-	        React.createElement(HostSignup, this.props)
-	      )
+	      hostView
 	    );
 	  }
 	});
@@ -20610,17 +20671,19 @@
 	var HostButton = React.createClass({
 	  displayName: 'HostButton',
 
+	  showLoginForm: function showLoginForm() {
+	    this.props.showLogin();
+	  },
+
 	  render: function render() {
 	    return React.createElement(
 	      'button',
-	      { onClick: this.props.showInput, className: 'button-login' },
-	      ' ',
+	      { onClick: this.showLoginForm, className: 'button-login' },
 	      React.createElement(
 	        'span',
 	        { className: 'text-login' },
 	        'Login'
-	      ),
-	      ' '
+	      )
 	    );
 	  }
 	});
@@ -20638,17 +20701,19 @@
 	var HostSignup = React.createClass({
 	  displayName: 'HostSignup',
 
+	  showSignupForm: function showSignupForm() {
+	    this.props.showSignup();
+	  },
+
 	  render: function render() {
 	    return React.createElement(
 	      'button',
-	      { onClick: this.props.consoleLog, className: 'button-signup' },
-	      ' ',
+	      { onClick: this.showSignupForm, className: 'button-signup' },
 	      React.createElement(
 	        'span',
 	        { className: 'text-signup' },
 	        'Sign up'
-	      ),
-	      ' '
+	      )
 	    );
 	  }
 	});
@@ -20664,32 +20729,42 @@
 	var React = __webpack_require__(1);
 	var helpers = __webpack_require__(162);
 
-	var InputBar = React.createClass({
-	  displayName: 'InputBar',
+	var LoginForm = React.createClass({
+	  displayName: 'LoginForm',
 
 	  createData: function createData(e) {
 	    e.preventDefault();
-	    // store host's first name in variable
-	    var firstname = this.refs.firstname.getDOMNode().value;
+	    var username = this.refs.username.getDOMNode().value;
+	    var password = this.refs.password.getDOMNode().value;
 
-	    // create playlist and set new data node in firebase
-	    // returns new playlist code
-	    var playlistCode = helpers.createPlaylist(firstname);
+	    //var playlistCode = helpers.createPlaylist(firstname);
 
-	    // update playlistCode state in Main
-	    this.props.updateCode(playlistCode);
+	    // update auth/playlist view state in Main
+	    //this.props.updateCode(playlistCode);
 	  },
 
 	  render: function render() {
 	    return React.createElement(
 	      'form',
 	      { onSubmit: this.createData },
-	      React.createElement('input', { className: 'input-host-jam', type: 'text', placeholder: 'Playlist Name', ref: 'firstname' })
+	      React.createElement(
+	        'button',
+	        { onClick: this.props.goBack, className: 'button-auth-back' },
+	        React.createElement(
+	          'span',
+	          { className: 'text-auth-back' },
+	          '←back'
+	        )
+	      ),
+	      React.createElement('br', null),
+	      React.createElement('input', { className: 'input-login-username', type: 'text', placeholder: 'username', ref: 'username' }),
+	      React.createElement('br', null),
+	      React.createElement('input', { className: 'input-host-jam', type: 'text', placeholder: 'password', ref: 'password' })
 	    );
 	  }
 	});
 
-	module.exports = InputBar;
+	module.exports = LoginForm;
 
 /***/ },
 /* 162 */
@@ -20742,6 +20817,18 @@
 	    playlistRef.set(refactored);
 
 	    return playlistCode;
+	  },
+
+	  loginUser: function loginUser() {
+	    var ref = new Firebase("https://lldj.firebaseio.com");
+	    ref.authWithOAuthPopup("facebook", function (error, authData) {
+	      if (error) {
+	        console.log("Login Failed!", error);
+	      } else {
+	        console.log("Authenticated successfully with payload:", authData);
+	        window.localStorage.setItem('authToken', authData.token);
+	      }
+	    });
 	  },
 
 	  // GUESTS
@@ -28454,6 +28541,63 @@
 	var React = __webpack_require__(1);
 	var helpers = __webpack_require__(162);
 
+	var SignupForm = React.createClass({
+	  displayName: 'SignupForm',
+
+	  createData: function createData(e) {
+	    e.preventDefault();
+	    var username = this.refs.username.getDOMNode().value;
+	    var password = this.refs.password.getDOMNode().value;
+
+	    //var playlistCode = helpers.createPlaylist(firstname);
+
+	    // update auth/playlist view state in Main
+	    //this.props.updateCode(playlistCode);
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      'form',
+	      { onSubmit: this.createData },
+	      React.createElement(
+	        'button',
+	        { onClick: this.props.goBack, className: 'button-auth-back' },
+	        React.createElement(
+	          'span',
+	          { className: 'text-auth-back' },
+	          '←back'
+	        )
+	      ),
+	      React.createElement('br', null),
+	      React.createElement('input', { className: 'input-signup-username', type: 'text', placeholder: 'username', ref: 'username' }),
+	      React.createElement('br', null),
+	      React.createElement('input', { className: 'input-host-jam', type: 'text', placeholder: 'password', ref: 'password' }),
+	      React.createElement('br', null),
+	      React.createElement(
+	        'button',
+	        { onClick: this.createData, className: 'button-register' },
+	        React.createElement(
+	          'span',
+	          { className: 'text-login' },
+	          'Sign me up!'
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = SignupForm;
+	/* change className below to 'button-signup' or 'register' or sthing */
+
+/***/ },
+/* 169 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+	var helpers = __webpack_require__(162);
+
 	var Guest = React.createClass({
 	  displayName: 'Guest',
 
@@ -28465,8 +28609,7 @@
 	  render: function render() {
 	    return React.createElement(
 	      'div',
-	      { className: 'padded-container' },
-	      React.createElement('img', { src: '../../assets/img/llamalogo.png' }),
+	      null,
 	      React.createElement(
 	        'div',
 	        { className: 'logo-container' },
@@ -28483,13 +28626,13 @@
 	module.exports = Guest;
 
 /***/ },
-/* 169 */
+/* 170 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var SongEntry = __webpack_require__(170);
+	var SongEntry = __webpack_require__(171);
 
 	//basic playlist skeleton for each page
 	var Playlist = React.createClass({
@@ -28549,15 +28692,15 @@
 	/* passes in all the child props to songEntry, the parent */
 
 /***/ },
-/* 170 */
+/* 171 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var Search = __webpack_require__(171);
-	var Song = __webpack_require__(172);
-	var Player = __webpack_require__(173);
+	var Search = __webpack_require__(172);
+	var Song = __webpack_require__(173);
+	var Player = __webpack_require__(174);
 	var Firebase = __webpack_require__(163);
 
 	var SongEntry = React.createClass({
@@ -28794,7 +28937,7 @@
 	module.exports = SongEntry;
 
 /***/ },
-/* 171 */
+/* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28833,7 +28976,7 @@
 	module.exports = Search;
 
 /***/ },
-/* 172 */
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28870,7 +29013,7 @@
 	module.exports = Song;
 
 /***/ },
-/* 173 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

@@ -115,6 +115,13 @@ body {
   color: white;
 }
 
+.text-auth-back {
+  font-family: 'Lato', sans-serif;
+  text-transform: uppercase;
+  padding: 20px 25px 20px 25px;
+  color: white;
+}
+
 .button-login {
   background-color: #ff6c00;
   width: 145px;
@@ -147,6 +154,26 @@ body {
   font-size: 15px;
   letter-spacing: 3px;
   border-width: 0px;
+}
+
+.button-register {
+  background-color: #ff3300;
+  width: 300px;
+  height: 48px;
+  font-size: 15px;
+  letter-spacing: 1px;
+  border-width: 0px;
+  margin-top: 12px;
+}
+
+.button-auth-back {
+  background-color: #f1b136;
+  width: 300px;
+  height: 35px;
+  font-size: 11px;
+  letter-spacing: 3px;
+  border-width: 0px;
+  margin-bottom: 10px;
 }
 
 /* buttons have display inline-block to make it flow with the rest of the div elemeents*/
@@ -183,7 +210,6 @@ body {
 /* the front page input that holds the guest code playlist name after 'lets jam' is clicked */
 .input-join-jam {
   background-color: #f1b136;
-  width: 330px;
   height: 48px;
   font-size: 15px;
   font-family: 'Lato', sans-serif;
@@ -197,13 +223,33 @@ body {
 .input-host-jam {
   font-family: 'Lato', sans-serif;
   background-color: #ff6c00;
-  width: 330px;
+  width: 290px;
+  height: 29px;
+  border-width: 0px;
+  color:#fff;
+  padding: 5px 5px 5px 5px;
+}
+
+.input-signup-username {
+  font-family: 'Lato', sans-serif;
   background-color: #ff6c00;
   width: 290px;
   height: 29px;
   border-width: 0px;
   color:#fff;
   padding: 5px 5px 5px 5px;
+  margin-bottom: 10px;
+}
+
+.input-login-username {
+  font-family: 'Lato', sans-serif;
+  background-color: #ff6c00;
+  width: 290px;
+  height: 29px;
+  border-width: 0px;
+  color:#fff;
+  padding: 5px 5px 5px 5px;
+  margin-bottom: 10px;
 }
 
 /* makes the placeholders centered and white instead of gray */
